@@ -1,6 +1,8 @@
 
 #include "Gb.h"
 
+
+
 void Gb::LoadROM()
 {
     u8 romByte;
@@ -9,13 +11,12 @@ void Gb::LoadROM()
     if (test)
     {
         u32 i = 0;
-        while (test.good() && !test.eof())
+        while (test.read((char*)&romByte, sizeof(u8)))
         {
-            test.read((char*)&romByte, sizeof(u8));
             RAM[i] = romByte;
             i++;
+            printf("%d", romByte);
         }
         test.close();
     }
-    test.close();
 }

@@ -9,6 +9,7 @@ class Gb {
 	u8 VRAM[KiB16];
 	u8 RAM[KiB32];
 public:
+	Gb() = default;
 	void LoadROM();
 };
 
