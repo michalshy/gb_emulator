@@ -1,6 +1,8 @@
-#include "GbCPU.h"
+#include "GbCpu.h"
 
 int main()
 {
-	return 0;
+	GbCpu cpu;
+
+	cpu.LoadROM();
 }

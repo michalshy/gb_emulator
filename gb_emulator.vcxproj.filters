@@ -16,18 +16,27 @@
     <Filter Include="Source Files\gb_cpu">
       <UniqueIdentifier>{8b090302-d26d-4c39-99e7-3d33577e2edf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\gb_cpu">
+      <UniqueIdentifier>{dde98ed9-611e-4971-bc47-fa094e472e63}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GbCPU.cpp">
+    <ClCompile Include="GbCpu.cpp">
       <Filter>Source Files\gb_cpu</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GbCPU.h">
+    <ClInclude Include="GbCpu.h">
+      <Filter>Header Files\gb_cpu</Filter>
+    </ClInclude>
+    <ClInclude Include="TypeDef.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GbCpuStructs.h">
+      <Filter>Header Files\gb_cpu</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
