@@ -5,22 +5,6 @@ GbCpu::GbCpu()
 	regs.a = 0; // Test convention
 }
 
-void GbCpu::LoadROM()
-{
-    u8 opcode;
-    std::ifstream test;
-    test.open("cputest.gb", std::ios::binary);
-    if (test)
-    {
-        while (test.good() && !test.eof())
-        {
-            test.read((char*)&opcode, sizeof(u8));
-            ProceedInstruction(opcode);
-        }
-        test.close();
-    }
-    test.close();
-}
 
 void GbCpu::ProceedInstruction(u16 opcode)
 {

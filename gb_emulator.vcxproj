@@ -127,12 +127,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Gb.cpp" />
     <ClCompile Include="GbCpu.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Gb.h" />
     <ClInclude Include="GbCpu.h" />
-    <ClInclude Include="GbCpuStructs.h" />
+    <ClInclude Include="GbStructs.h" />
     <ClInclude Include="TypeDef.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

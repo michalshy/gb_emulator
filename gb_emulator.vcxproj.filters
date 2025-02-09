@@ -27,6 +27,9 @@
     <ClCompile Include="GbCpu.cpp">
       <Filter>Source Files\gb_cpu</Filter>
     </ClCompile>
+    <ClCompile Include="Gb.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GbCpu.h">
@@ -35,8 +38,11 @@
     <ClInclude Include="TypeDef.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GbCpuStructs.h">
-      <Filter>Header Files\gb_cpu</Filter>
+    <ClInclude Include="Gb.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GbStructs.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,8 +1,9 @@
-#include "GbCpu.h"
+#include "Gb.h"
 
 int main()
 {
-	GbCpu cpu;
+	Gb gameBoy;
+	gameBoy.LoadROM();
 
-	cpu.LoadROM();
+	return 0;
 }
