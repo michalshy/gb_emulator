@@ -19,6 +19,12 @@
     <Filter Include="Header Files\gb_cpu">
       <UniqueIdentifier>{dde98ed9-611e-4971-bc47-fa094e472e63}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\gb_ppu">
+      <UniqueIdentifier>{552f0526-a684-4c88-a2ed-12ef79f695d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gb_ppu">
+      <UniqueIdentifier>{3de28e13-0aa3-410b-91c1-9e7768e8e019}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -29,6 +35,9 @@
     </ClCompile>
     <ClCompile Include="Gb.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GbPpu.cpp">
+      <Filter>Source Files\gb_ppu</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -43,6 +52,9 @@
     </ClInclude>
     <ClInclude Include="GbStructs.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GbPpu.h">
+      <Filter>Header Files\gb_ppu</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

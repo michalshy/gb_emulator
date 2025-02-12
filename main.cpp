@@ -1,9 +1,13 @@
 #include "Gb.h"
+#include <memory>
 
-int main()
+int main(int, char*[])
 {
-	Gb gameBoy;
-	gameBoy.LoadROM();
-
-	return 0;
+    std::unique_ptr<Gb> gameBoy = std::make_unique<Gb>();
+    gameBoy->LoadROM();
+    if(gameBoy->IsActive())
+    {
+        gameBoy->EnterLoop();
+    }
+    return 0;
 }

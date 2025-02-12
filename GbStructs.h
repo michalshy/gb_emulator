@@ -2,9 +2,16 @@
 #define __GBCPUSTRUCTS_H__
 #include "TypeDef.h"
 
+// PPU CONSTANTS
+constexpr size_t WIDTH = 160;
+constexpr size_t HEIGHT = 144;
+
+// MEMORY SEGMENTS
+constexpr size_t KiB8 = 8 * 1024;
 constexpr size_t KiB16 = 16 * 1024;
 constexpr size_t KiB32 = 32 * 1024;
 
+// CPU REGISTERS
 struct Registers {
 	union {
 		struct {
