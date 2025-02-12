@@ -14,9 +14,6 @@ class GbPpu
 	SDL_Surface* surface;
 	SDL_Renderer* renderer;
 
-	SDL_Texture* bitmapTex;
-	SDL_Surface* bitmapSurface;
-
 	bool mInit;
 
 public:

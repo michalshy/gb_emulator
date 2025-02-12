@@ -2,11 +2,20 @@
 
 GbCpu::GbCpu()
 {
-	regs.a = 0; // Test convention
+    opcode = 0;
+    regs.sp = 0;
+    regs.pc = 0;
+}
+
+bool GbCpu::Fetch(u8 (&memory)[KiB32])
+{
+    opcode = memory[regs.pc];
+    regs.pc++;
+    return true;
 }
 
 
-void GbCpu::ProceedInstruction(u16 opcode)
+void GbCpu::Decode()
 {
     printf("Process opcode :0x%02x\n", opcode);
     switch (opcode) {

@@ -3,13 +3,15 @@
 
 #include "GbStructs.h"
 #include <cstdio>
+#include <cstring>
 
 class GbCpu{
+	u8 opcode;
 	Registers regs;
-
 public:
 	GbCpu();
-	void ProceedInstruction(u16);
+	bool Fetch(u8(&memory)[KiB32]);
+	void Decode();
 };
 
 #endif // !__GBCPU_H__

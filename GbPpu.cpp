@@ -11,8 +11,6 @@ GbPpu::GbPpu()
 	window = NULL;
 	surface = NULL;
 	renderer = NULL;
-	bitmapTex = NULL;
-	bitmapSurface = NULL;
 
 	//Intialize
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
@@ -53,12 +51,10 @@ void GbPpu::Render()
 		}
 
 		SDL_RenderClear(renderer);
-		SDL_RenderTexture(renderer, bitmapTex, NULL, NULL);
 		SDL_RenderPresent(renderer);
 	}
 	else
 	{
-		SDL_DestroyTexture(bitmapTex);
 		SDL_DestroyRenderer(renderer);
 		SDL_DestroyWindow(window);
 		SDL_Quit();

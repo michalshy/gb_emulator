@@ -24,6 +24,12 @@ void Gb::EnterLoop()
     while (mInit)
     {
         ppu.Render();
+
+        if (cpu.Fetch(RAM))
+        {
+            cpu.Decode();
+            std::cin.get();
+        }
     }
 }
 
