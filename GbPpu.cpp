@@ -25,15 +25,21 @@ GbPpu::GbPpu()
 	}
 }
 
-void GbPpu::MainLoop()
+void GbPpu::Init()
 {
 	//Create window
 	window = SDL_CreateWindow("GameBoy_michin", WIDTH, HEIGHT, 0);
-
 	//Create renderer
 	renderer = SDL_CreateRenderer(window, NULL);
+	if (window == NULL || renderer == NULL)
+	{
+		mInit = false;
+	}
+}
 
-	while (mInit)
+void GbPpu::Render()
+{
+	if(mInit)
 	{
 		SDL_Event event;
 		while (SDL_PollEvent(&event))
@@ -50,10 +56,11 @@ void GbPpu::MainLoop()
 		SDL_RenderTexture(renderer, bitmapTex, NULL, NULL);
 		SDL_RenderPresent(renderer);
 	}
-
-	SDL_DestroyTexture(bitmapTex);
-	SDL_DestroyRenderer(renderer);
-	SDL_DestroyWindow(window);
-
-	SDL_Quit();
+	else
+	{
+		SDL_DestroyTexture(bitmapTex);
+		SDL_DestroyRenderer(renderer);
+		SDL_DestroyWindow(window);
+		SDL_Quit();
+	}
 }

@@ -21,7 +21,8 @@ class GbPpu
 
 public:
 	GbPpu();
-	void MainLoop();
+	void Init();
+	void Render();
 };
 
 #endif // __GBPPU_H__

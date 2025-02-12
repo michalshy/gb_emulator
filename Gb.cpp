@@ -20,7 +20,11 @@ void Gb::LoadROM()
 
 void Gb::EnterLoop()
 {
-    ppu.MainLoop();
+    ppu.Init();
+    while (mInit)
+    {
+        ppu.Render();
+    }
 }
 
 bool Gb::IsActive()
