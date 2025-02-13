@@ -14,9 +14,9 @@ namespace gbemulatortest
 		TEST_METHOD(TestSetsResets)
 		{
 			GbCpu gbCpu;
-			gbCpu.SetFlag(8);
+			gbCpu.SetFlag(7);
 			Assert::AreEqual(0b10000000, static_cast<int>(gbCpu.DumpRegs().f));
-			gbCpu.ResetFlag(8);
+			gbCpu.ResetFlag(7);
 			Assert::AreEqual(0b00000000, static_cast<int>(gbCpu.DumpRegs().f));
 		}
 	};

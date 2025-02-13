@@ -14,14 +14,14 @@ GbCpu::GbCpu()
 /* 0 0 0 0 c(carry) h(half carrt) n(substraction) z(zero) */
 void GbCpu::SetFlag(u8 bit)
 {
-    u8 toSet = (RIGHT_BIT << (bit - 1));
+    u8 toSet = (RIGHT_BIT << bit);
     regs.f |= toSet;
 }
 
 /* 0 0 0 0 c(carry) h(half carrt) n(substraction) z(zero) */
 void GbCpu::ResetFlag(u8 bit)
 {
-    u8 toReset = (RIGHT_BIT << (bit - 1));
+    u8 toReset = (RIGHT_BIT << bit);
     regs.f &= ~toReset;
 }
 
@@ -46,18 +46,17 @@ void GbCpu::ADC(u8& reg)
 
 void GbCpu::ADD(u8& reg)
 {
+    CheckCarries(regs.a, reg);
     regs.a += reg;
-    if (regs.a == 0)
-    {
-
-    }
 }
 void GbCpu::ADD(u16& from, u16& to)
 {
+    CheckCarries(from, to);
     to += from;
 }
 void GbCpu::ADD(s8 from, u16& to)
 {
+    CheckCarries(from, to);
     to += from;
 }
 
@@ -86,7 +85,7 @@ void GbCpu::Decode(u8(&ram)[KiB8], u8(&rom)[KiB32])
     printf("Process opcode :0x%02x\n", opcode);
     switch (opcode) {
     case 0x00:
-        // Handle opcode 0x00
+        /* Not required, just skip cycle */
         break;
     case 0x01:
         // Handle opcode 0x01
@@ -134,7 +133,7 @@ void GbCpu::Decode(u8(&ram)[KiB8], u8(&rom)[KiB32])
         // Handle opcode 0x0F
         break;
     case 0x10:
-        // Handle opcode 0x10
+        /* TODO: One day might implement STOP */
         break;
     case 0x11:
         // Handle opcode 0x11
@@ -790,6 +789,30 @@ void GbCpu::Decode(u8(&ram)[KiB8], u8(&rom)[KiB32])
     default:
         printf("Invalid opcode! :0x%08x\n", opcode);
         break;
+    }
+}
+
+void GbCpu::CheckCarries(u8 a, u8 b)
+{
+    if (static_cast<u16>(a + b) > 0xff)
+    {
+        SetFlag(4);
+    }
+    if (((MASK_LOWER & a) + (MASK_LOWER & b)) > 0x0f)
+    {
+        SetFlag(5);
+    }
+}
+
+void GbCpu::CheckCarries(u16 a, u16 b)
+{
+    if (static_cast<u32>(a + b) > 0xffff)
+    {
+        SetFlag(4);
+    }
+    if (((MASK_LOWER12 & a) + (MASK_LOWER12 & b)) > 0x0fff)
+    {
+        SetFlag(5);
     }
 }
 

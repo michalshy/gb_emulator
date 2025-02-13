@@ -49,6 +49,10 @@ public:
 	void Decode(u8(&ram)[KiB8], u8(&rom)[KiB32]);
 
 	Registers DumpRegs() const { return regs; }
+
+protected:
+	void CheckCarries(u8, u8);
+	void CheckCarries(u16, u16);
 };
 
 #endif // !__GBCPU_H__
