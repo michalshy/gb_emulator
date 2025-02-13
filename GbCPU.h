@@ -51,8 +51,8 @@ public:
 	Registers DumpRegs() const { return regs; }
 
 protected:
-	void CheckCarries(u8, u8);
-	void CheckCarries(u16, u16);
+	void CheckAddition(u8, u8);
+	void CheckAddition(u16, u16);
 };
 
 #endif // !__GBCPU_H__

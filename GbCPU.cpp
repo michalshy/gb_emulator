@@ -46,22 +46,26 @@ void GbCpu::ADC(u8& reg)
 
 void GbCpu::ADD(u8& reg)
 {
-    CheckCarries(regs.a, reg);
+    CheckAddition(regs.a, reg);
     regs.a += reg;
 }
 void GbCpu::ADD(u16& from, u16& to)
 {
-    CheckCarries(from, to);
+    CheckAddition(from, to);
     to += from;
 }
 void GbCpu::ADD(s8 from, u16& to)
 {
-    CheckCarries(from, to);
+    CheckAddition(from, to);
     to += from;
 }
 
-void GbCpu::CP(u8&)
+void GbCpu::CP(u8& reg)
 {
+    if (regs.a - reg == 0) SetFlag(7);
+    if ((regs.a & MASK_BIT4) == 0 && (reg & MASK_BIT4) == 1) SetFlag(5);
+    if (regs.a < reg) SetFlag(4);
+
 }
 
 void GbCpu::DEC(u8&)
@@ -637,20 +641,28 @@ void GbCpu::Decode(u8(&ram)[KiB8], u8(&rom)[KiB32])
         // Handle opcode 0xB7
         break;
     case 0xB8:
+        CP(regs.b);
         break;
     case 0xB9:
+        CP(regs.c);
         break;
     case 0xBA:
+        CP(regs.d);
         break;
     case 0xBB:
+        CP(regs.e);
         break;
     case 0xBC:
+        CP(regs.h);
         break;
     case 0xBD:
+        CP(regs.l);
         break;
     case 0xBE:
+        CP(rom[regs.hl]);
         break;
     case 0xBF:
+        CP(regs.a);
         break;
     case 0xC0:
         break;
@@ -783,6 +795,8 @@ void GbCpu::Decode(u8(&ram)[KiB8], u8(&rom)[KiB32])
     case 0xFD:
         break;
     case 0xFE:
+        CP(rom[regs.pc]);
+        regs.pc++;
         break;
     case 0xFF:
         break;
@@ -792,7 +806,7 @@ void GbCpu::Decode(u8(&ram)[KiB8], u8(&rom)[KiB32])
     }
 }
 
-void GbCpu::CheckCarries(u8 a, u8 b)
+void GbCpu::CheckAddition(u8 a, u8 b)
 {
     if (static_cast<u16>(a + b) > 0xff)
     {
@@ -804,7 +818,7 @@ void GbCpu::CheckCarries(u8 a, u8 b)
     }
 }
 
-void GbCpu::CheckCarries(u16 a, u16 b)
+void GbCpu::CheckAddition(u16 a, u16 b)
 {
     if (static_cast<u32>(a + b) > 0xffff)
     {

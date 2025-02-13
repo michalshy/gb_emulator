@@ -9,6 +9,8 @@ constexpr u8 MASK_SET = 0b00000000;
 constexpr u8 MASK_LOWER = 0b00001111;
 constexpr u16 MASK_LOWER12 = 0b0000111111111111;
 
+constexpr u8 MASK_BIT4 = 0b00001000;
+
 constexpr u8 LEFT_BIT = 0b10000000;
 constexpr u8 RIGHT_BIT = 0b00000001;
 
