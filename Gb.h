@@ -8,9 +8,11 @@
 
 class Gb {
 
+	u8 ROM[KiB32];
+
 	// Memory segment
 	u8 VRAM[KiB16];
-	u8 RAM[KiB32];
+	u8 RAM[KiB8];
 	
 	// CPU segment
 	GbCpu cpu;

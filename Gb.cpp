@@ -10,7 +10,7 @@ void Gb::LoadROM()
         u32 i = 0;
         while (test.read((char*)&romByte, sizeof(u8)))
         {
-            RAM[i] = romByte;
+            ROM[i] = romByte;
             i++;
         }
         test.close();
@@ -25,10 +25,10 @@ void Gb::EnterLoop()
     {
         ppu.Render();
 
-        if (cpu.Fetch(RAM))
+        if (cpu.Fetch(ROM))
         {
-            cpu.Decode();
-            std::cin.get();
+            cpu.Decode(RAM, ROM);
+            //std::cin.get();
         }
     }
 }

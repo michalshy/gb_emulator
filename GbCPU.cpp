@@ -5,17 +5,83 @@ GbCpu::GbCpu()
     opcode = 0;
     regs.sp = 0;
     regs.pc = 0;
+    regs.af = 0;
+    regs.bc = 0;
+    regs.de = 0;
+    regs.hl = 0;
+}
+
+/* 0 0 0 0 c(carry) h(half carrt) n(substraction) z(zero) */
+void GbCpu::SetFlag(u8 bit)
+{
+    u8 toSet = (RIGHT_BIT << (bit - 1));
+    regs.f |= toSet;
+}
+
+/* 0 0 0 0 c(carry) h(half carrt) n(substraction) z(zero) */
+void GbCpu::ResetFlag(u8 bit)
+{
+    u8 toReset = (RIGHT_BIT << (bit - 1));
+    regs.f &= ~toReset;
 }
 
 bool GbCpu::Fetch(u8 (&memory)[KiB32])
 {
-    opcode = memory[regs.pc];
-    regs.pc++;
-    return true;
+    if (regs.pc < KiB32)
+    {
+        opcode = memory[regs.pc];
+        regs.pc++;
+    }
+    else
+    {
+        return true;
+    }
 }
 
+void GbCpu::ADC(u8& reg)
+{
+    u8 toAdd = reg + (regs.f & 0b00001000);
+    ADD(toAdd);
+}
 
-void GbCpu::Decode()
+void GbCpu::ADD(u8& reg)
+{
+    regs.a += reg;
+    if (regs.a == 0)
+    {
+
+    }
+}
+void GbCpu::ADD(u16& from, u16& to)
+{
+    to += from;
+}
+void GbCpu::ADD(s8 from, u16& to)
+{
+    to += from;
+}
+
+void GbCpu::CP(u8&)
+{
+}
+
+void GbCpu::DEC(u8&)
+{
+}
+
+void GbCpu::INC(u8&)
+{
+}
+
+void GbCpu::SBC(u8&)
+{
+}
+
+void GbCpu::SUB(u8&)
+{
+}
+
+void GbCpu::Decode(u8(&ram)[KiB8], u8(&rom)[KiB32])
 {
     printf("Process opcode :0x%02x\n", opcode);
     switch (opcode) {
@@ -47,7 +113,7 @@ void GbCpu::Decode()
         // Handle opcode 0x08
         break;
     case 0x09:
-        // Handle opcode 0x09
+        ADD(regs.bc, regs.hl);
         break;
     case 0x0A:
         // Handle opcode 0x0A
@@ -95,7 +161,7 @@ void GbCpu::Decode()
         // Handle opcode 0x18
         break;
     case 0x19:
-        // Handle opcode 0x19
+        ADD(regs.de, regs.hl);
         break;
     case 0x1A:
         // Handle opcode 0x1A
@@ -143,7 +209,7 @@ void GbCpu::Decode()
         // Handle opcode 0x28
         break;
     case 0x29:
-        // Handle opcode 0x29
+        ADD(regs.hl, regs.hl);
         break;
     case 0x2A:
         // Handle opcode 0x2A
@@ -191,7 +257,7 @@ void GbCpu::Decode()
         // Handle opcode 0x38
         break;
     case 0x39:
-        // Handle opcode 0x39
+        ADD(regs.sp, regs.hl);
         break;
     case 0x3A:
         // Handle opcode 0x3A
@@ -404,52 +470,52 @@ void GbCpu::Decode()
         // Handle opcode 0x7F
         break;
     case 0x80:
-        // Handle opcode 0x80
+        ADD(regs.b);
         break;
     case 0x81:
-        // Handle opcode 0x81
+        ADD(regs.c);
         break;
     case 0x82:
-        // Handle opcode 0x82
+        ADD(regs.d);
         break;
     case 0x83:
-        // Handle opcode 0x83
+        ADD(regs.e);
         break;
     case 0x84:
-        // Handle opcode 0x84
+        ADD(regs.h);
         break;
     case 0x85:
-        // Handle opcode 0x85
+        ADD(regs.l);
         break;
     case 0x86:
-        // Handle opcode 0x86
+        ADD(ram[regs.hl]);
         break;
     case 0x87:
-        // Handle opcode 0x87
+        ADD(regs.a);
         break;
     case 0x88:
-        // Handle opcode 0x88
+        ADC(regs.b);
         break;
     case 0x89:
-        // Handle opcode 0x89
+        ADC(regs.c);
         break;
     case 0x8A:
-        // Handle opcode 0x8A
+        ADC(regs.d);
         break;
     case 0x8B:
-        // Handle opcode 0x8B
+        ADC(regs.e);
         break;
     case 0x8C:
-        // Handle opcode 0x8C
+        ADC(regs.h);
         break;
     case 0x8D:
-        // Handle opcode 0x8D
+        ADC(regs.l);
         break;
     case 0x8E:
-        // Handle opcode 0x8E
+        ADC(ram[regs.hl]);
         break;
     case 0x8F:
-        // Handle opcode 0x8F
+        ADC(regs.a);
         break;
     case 0x90:
         // Handle opcode 0x90
@@ -600,6 +666,8 @@ void GbCpu::Decode()
     case 0xC5:
         break;
     case 0xC6:
+        ADD(rom[regs.pc]);
+        regs.pc++;
         break;
     case 0xC7:
         break;
@@ -616,6 +684,8 @@ void GbCpu::Decode()
     case 0xCD:
         break;
     case 0xCE:
+        ADC(rom[regs.pc]);
+        regs.pc++;
         break;
     case 0xCF:
         break;
@@ -668,6 +738,8 @@ void GbCpu::Decode()
     case 0xE7:
         break;
     case 0xE8:
+        ADD(static_cast<s8>(rom[regs.pc]), regs.sp);
+        regs.pc++;
         break;
     case 0xE9:
         break;

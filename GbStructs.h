@@ -2,6 +2,13 @@
 #define __GBCPUSTRUCTS_H__
 #include "TypeDef.h"
 
+// CONSTANTS
+constexpr u8 MASK_RESET = 0b11111111;
+constexpr u8 MASK_SET = 0b00000000;
+
+constexpr u8 LEFT_BIT = 0b10000000;
+constexpr u8 RIGHT_BIT = 0b00000001;
+
 // PPU CONSTANTS
 constexpr size_t WIDTH = 160;
 constexpr size_t HEIGHT = 144;
