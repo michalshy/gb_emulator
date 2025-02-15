@@ -33,6 +33,7 @@ constexpr size_t KiB32 = 32 * 1024;
 struct CpuInstruction
 {
 	std::string name;
+	u8 size;
 	CpuFunc func;
 };
 
