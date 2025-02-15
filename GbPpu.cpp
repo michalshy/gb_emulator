@@ -3,10 +3,6 @@
 GbPpu::GbPpu()
 {
 	mInit = false;
-	for (auto& pixel : SCREEN)
-	{
-		pixel = 0;
-	}
 
 	window = NULL;
 	surface = NULL;
@@ -26,7 +22,7 @@ GbPpu::GbPpu()
 void GbPpu::Init()
 {
 	//Create window
-	window = SDL_CreateWindow("GameBoy_michin", WIDTH, HEIGHT, 0);
+	window = SDL_CreateWindow("GameBoy_michin", WIDTH_RES, HEIGHT_RES, 0);
 	//Create renderer
 	renderer = SDL_CreateRenderer(window, NULL);
 	if (window == NULL || renderer == NULL)

@@ -19,5 +19,14 @@ namespace gbemulatortest
 			gbCpu.ResetFlag(7);
 			Assert::AreEqual(0b00000000, static_cast<int>(gbCpu.DumpRegs().f));
 		}
+
+		TEST_METHOD(TestAdditionsLowerHigherOwerflow)
+		{
+			GbCpu gbCpu;
+			u8 a = 255;
+			gbCpu.ADD(a);
+			gbCpu.ADD(a);
+			Assert::AreEqual(0b00110000, static_cast<int>(gbCpu.DumpRegs().f));
+		}
 	};
 }

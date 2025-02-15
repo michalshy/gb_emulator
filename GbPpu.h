@@ -8,7 +8,7 @@
 class GbPpu
 {
 	//SCREEN
-	u8 SCREEN[WIDTH * HEIGHT];
+	u8 SCREEN[WIDTH][HEIGHT];
 	SDL_Window* window;
 
 	SDL_Surface* surface;
