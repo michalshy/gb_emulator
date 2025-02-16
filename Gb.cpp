@@ -20,15 +20,32 @@ void Gb::LoadROM()
 
 void Gb::EnterLoop()
 {
+    bool running = true;
     ppu.Init();
-    while (mInit)
+    if (!mInit)
+    {
+        return;
+    }
+    while (running)
     {
         ppu.Render();
 
-        if (cpu.Fetch(ROM))
+        if (cpu.Fetch())
         {
-            cpu.Decode(RAM, ROM);
-            //std::cin.get();
+            if ( cpu.Decode() ) {
+                /*
+                    Correct
+                */
+            }
+            else
+            {
+                Logger::FalseBreakpoint();
+                running = false;
+            }
+        }
+        else
+        {
+            running = false;
         }
     }
 }

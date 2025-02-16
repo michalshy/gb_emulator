@@ -1,5 +1,6 @@
 #ifndef __GBCPUSTRUCTS_H__
 #define __GBCPUSTRUCTS_H__
+
 #include "TypeDef.h"
 #include <string>
 
@@ -16,6 +17,9 @@ constexpr u8 CARRY_MASK = 0b00010000;
 
 constexpr u8 LEFT_BIT = 0b10000000;
 constexpr u8 RIGHT_BIT = 0b00000001;
+
+// FLAGS
+
 
 // PPU CONSTANTS
 constexpr size_t RES_MULT = 4;

@@ -39,6 +39,9 @@
     <ClCompile Include="GbPpu.cpp">
       <Filter>Source Files\gb_ppu</Filter>
     </ClCompile>
+    <ClCompile Include="Logger.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GbCpu.h">
@@ -55,6 +58,9 @@
     </ClInclude>
     <ClInclude Include="GbPpu.h">
       <Filter>Header Files\gb_ppu</Filter>
+    </ClInclude>
+    <ClInclude Include="Logger.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

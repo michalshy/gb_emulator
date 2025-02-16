@@ -11,7 +11,7 @@ class Gb {
 	u8 ROM[KiB32];
 
 	// Memory segment
-	u8 VRAM[KiB16];
+	u8 VRAM[KiB8];
 	u8 RAM[KiB8];
 	
 	// CPU segment
@@ -25,7 +25,21 @@ class Gb {
 	
 public:
 	// CONSTRUCTORS
-	Gb() = default;
+	Gb() : mInit(false), cpu(ROM, RAM, VRAM) 
+	{
+		for (auto& el : VRAM)
+		{
+			el = 0;
+		}
+		for (auto& el : ROM)
+		{
+			el = 0;
+		}
+		for (auto& el : RAM)
+		{
+			el = 0;
+		}
+	}
 
 	// Components functions
 	void LoadROM();

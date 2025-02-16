@@ -142,6 +142,7 @@
     <ClCompile Include="Gb.cpp" />
     <ClCompile Include="GbCpu.cpp" />
     <ClCompile Include="GbPpu.cpp" />
+    <ClCompile Include="Logger.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -149,6 +150,7 @@
     <ClInclude Include="GbCpu.h" />
     <ClInclude Include="GbPpu.h" />
     <ClInclude Include="GbStructs.h" />
+    <ClInclude Include="Logger.h" />
     <ClInclude Include="TypeDef.h" />
   </ItemGroup>
   <ItemGroup>
