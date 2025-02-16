@@ -141,6 +141,7 @@
   <ItemGroup>
     <ClCompile Include="Gb.cpp" />
     <ClCompile Include="GbCpu.cpp" />
+    <ClCompile Include="GbMem.cpp" />
     <ClCompile Include="GbPpu.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="main.cpp" />
@@ -148,6 +149,7 @@
   <ItemGroup>
     <ClInclude Include="Gb.h" />
     <ClInclude Include="GbCpu.h" />
+    <ClInclude Include="GbMem.h" />
     <ClInclude Include="GbPpu.h" />
     <ClInclude Include="GbStructs.h" />
     <ClInclude Include="Logger.h" />

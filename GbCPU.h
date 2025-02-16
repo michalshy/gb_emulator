@@ -25,6 +25,8 @@ public:
 
 protected:
 
+    u8 test[KiB32];
+
 	void NOP(); // 0x00
     void DEC_B(); //0x05
     void LD_B_D8(); // 0x06

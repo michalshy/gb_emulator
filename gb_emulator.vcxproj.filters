@@ -25,6 +25,12 @@
     <Filter Include="Source Files\gb_ppu">
       <UniqueIdentifier>{3de28e13-0aa3-410b-91c1-9e7768e8e019}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\gb_mem">
+      <UniqueIdentifier>{7d767d62-a592-42b8-874d-0b9ac4083cce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gb_mem">
+      <UniqueIdentifier>{8de62d8e-8e03-4dc6-be17-aeb35723cdc9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -41,6 +47,9 @@
     </ClCompile>
     <ClCompile Include="Logger.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GbMem.cpp">
+      <Filter>Source Files\gb_mem</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -61,6 +70,9 @@
     </ClInclude>
     <ClInclude Include="Logger.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GbMem.h">
+      <Filter>Header Files\gb_mem</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

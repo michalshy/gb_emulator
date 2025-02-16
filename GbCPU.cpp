@@ -89,7 +89,7 @@ void GbCpu::LD_HL_N16()
 
 void GbCpu::LD_HLadd_M_A()
 {
-    //RAM[regs.hl] = regs.a; TODO: FIX crash?
+    ROM[regs.hl] = regs.a; //TODO: FIX crash?
     regs.hl -= 1;
 }
 
