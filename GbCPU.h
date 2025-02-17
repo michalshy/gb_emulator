@@ -5,15 +5,17 @@
 #include <cstdio>
 #include <cstring>
 #include "Logger.h"
+#include "GbMem.h"
 
 class GbCpu {
 	u8 opcode;
 	Registers regs;
-    u8 (&ROM)[KiB32];
-    u8 (&RAM)[KiB8];
-    u8 (&VRAM)[KiB8];
+    GbMem& mem;
+    bool mInit;
 public:
-    GbCpu(u8 (&_ROM)[KiB32], u8 (&_RAM)[KiB8], u8 (&_VRAM)[KiB8]) : ROM(_ROM), RAM(_RAM), VRAM(_VRAM), opcode(0), regs() {}
+    GbCpu(GbMem& _mem) : mem(_mem), opcode(0), regs(), mInit(false) {}
+
+    bool Init();
 
 	void SetFlag(u8);
 	void ResetFlag(u8);
@@ -24,8 +26,6 @@ public:
 	Registers DumpRegs() const { return regs; }
 
 protected:
-
-    u8 test[KiB32];
 
 	void NOP(); // 0x00
     void DEC_B(); //0x05

@@ -19,7 +19,7 @@ GbPpu::GbPpu()
 	}
 }
 
-void GbPpu::Init()
+bool GbPpu::Init()
 {
 	//Create window
 	window = SDL_CreateWindow("GameBoy_michin", WIDTH_RES, HEIGHT_RES, 0);
@@ -29,6 +29,11 @@ void GbPpu::Init()
 	{
 		mInit = false;
 	}
+	else
+	{
+		mInit = true;
+	}
+	return mInit;
 }
 
 void GbPpu::Render()

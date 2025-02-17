@@ -1,5 +1,11 @@
 #include "GbCpu.h"
 
+bool GbCpu::Init()
+{
+    mInit = true;
+    return true;
+}
+
 /* 0 0 0 0 c(carry) h(half carrt) n(substraction) z(zero) */
 void GbCpu::SetFlag(u8 bit)
 {
@@ -18,7 +24,7 @@ bool GbCpu::Fetch()
 {
     if (regs.pc < KiB32)
     {
-        opcode = ROM[regs.pc];
+        opcode = mem.ReadByte(regs.pc);
         regs.pc++;
         return true;
     }
@@ -28,16 +34,16 @@ bool GbCpu::Fetch()
 bool GbCpu::Decode()
 {
    auto instruction = this->instructions[opcode];
-   //Logger::Debug(regs);
+   Logger::Debug(regs);
    if (instruction.func != NULL)
    {
-       //Logger::Debug(instruction);
+       Logger::Debug(instruction);
        (this->*(instruction.func))();
        return true;
    }
    else
    {
-       //Logger::Error(instruction);
+       Logger::Error(instruction);
        return false;
    }
 }
@@ -61,19 +67,22 @@ void GbCpu::DEC_B()
 
 void GbCpu::LD_B_D8()
 {
-    u8 load = ROM[regs.pc++];
+    u8 load = mem.ReadByte(regs.pc);
+    regs.pc++;
     regs.b = load;
 }
 
 void GbCpu::LD_C_D8()
 {
-    u8 load = ROM[regs.pc++];
+    u8 load = mem.ReadByte(regs.pc);
+    regs.pc++;
     regs.c = load;
 }
 
 void GbCpu::JR_NZ_E8()
 {
-    s8 e = static_cast<s8>(ROM[regs.pc++]);
+    s8 e = static_cast<s8>(mem.ReadByte(regs.pc));
+    regs.pc++;
     if (regs.f >= 128)
     {
         regs.pc = static_cast<u16>(regs.pc + e);
@@ -82,14 +91,16 @@ void GbCpu::JR_NZ_E8()
 
 void GbCpu::LD_HL_N16()
 {
-    u16 lsb = ROM[regs.pc++];
-    u16 msb = ROM[regs.pc++];
+    u16 lsb = mem.ReadByte(regs.pc);
+    regs.pc++;
+    u16 msb = mem.ReadByte(regs.pc);
+    regs.pc++;
     regs.hl = (msb << 8) | lsb;
 }
 
 void GbCpu::LD_HLadd_M_A()
 {
-    ROM[regs.hl] = regs.a; //TODO: FIX crash?
+    mem.WriteByte(regs.hl, regs.a);
     regs.hl -= 1;
 }
 
@@ -115,7 +126,9 @@ void GbCpu::XOR_A_A()
 
 void GbCpu::JP_A16()
 {
-    u16 lsb = ROM[regs.pc++];
-    u16 msb = ROM[regs.pc++];
+    u16 lsb = mem.ReadByte(regs.pc);
+    regs.pc++;
+    u16 msb = mem.ReadByte(regs.pc);
+    regs.pc++;
     regs.pc = (msb << 8) | lsb;
 }

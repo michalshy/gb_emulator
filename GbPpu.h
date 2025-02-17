@@ -18,7 +18,7 @@ class GbPpu
 
 public:
 	GbPpu();
-	void Init();
+	bool Init();
 	void Render();
 };
 

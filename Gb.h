@@ -3,46 +3,26 @@
 
 #include "GbCpu.h"
 #include "GbPpu.h"
-#include <fstream>
+#include "GbMem.h"
 #include <iostream>
 
 class Gb {
-
-	u8 ROM[KiB32];
-
-	// Memory segment
-	u8 VRAM[KiB8];
-	u8 RAM[KiB8];
-	
+	//Memory segment
+	GbMem mem;
 	// CPU segment
 	GbCpu cpu;
-
 	// PPU segment
 	GbPpu ppu;
-
 	//Internal variables
 	bool mInit;
 	
 public:
 	// CONSTRUCTORS
-	Gb() : mInit(false), cpu(ROM, RAM, VRAM) 
-	{
-		for (auto& el : VRAM)
-		{
-			el = 0;
-		}
-		for (auto& el : ROM)
-		{
-			el = 0;
-		}
-		for (auto& el : RAM)
-		{
-			el = 0;
-		}
-	}
+	Gb() : mInit(false), cpu(mem) {}
+
+	bool Init();
 
 	// Components functions
-	void LoadROM();
 	void EnterLoop();
 
 	//Internal state functions

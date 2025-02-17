@@ -1,27 +1,18 @@
 #include "Gb.h"
 
-void Gb::LoadROM()
+bool Gb::Init()
 {
-    std::ifstream test;
-    test.open("tetris.gb", std::ios::binary);
-    if (test)
+    if (cpu.Init() && mem.Init() && ppu.Init())
     {
-        u8 romByte;
-        u32 i = 0;
-        while (test.read((char*)&romByte, sizeof(u8)))
-        {
-            ROM[i] = romByte;
-            i++;
-        }
-        test.close();
         mInit = true;
+        return true;
     }
+    return false;
 }
 
 void Gb::EnterLoop()
 {
     bool running = true;
-    ppu.Init();
     if (!mInit)
     {
         return;
