@@ -143,7 +143,7 @@
     <ClCompile Include="src\components\GbCpu.cpp" />
     <ClCompile Include="src\components\GbMem.cpp" />
     <ClCompile Include="src\components\GbPpu.cpp" />
-    <ClCompile Include="src\debug\Logger.cpp" />
+    <ClCompile Include="src\help\Logger.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -152,7 +152,7 @@
     <ClInclude Include="src\components\GbMem.h" />
     <ClInclude Include="src\components\GbPpu.h" />
     <ClInclude Include="src\GbStructs.h" />
-    <ClInclude Include="src\debug\Logger.h" />
+    <ClInclude Include="src\help\Logger.h" />
     <ClInclude Include="src\TypeDef.h" />
   </ItemGroup>
   <ItemGroup>

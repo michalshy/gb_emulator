@@ -45,7 +45,7 @@
     <ClCompile Include="src\components\GbPpu.cpp">
       <Filter>Source Files\gb_ppu</Filter>
     </ClCompile>
-    <ClCompile Include="src\debug\Logger.cpp">
+    <ClCompile Include="src\help\Logger.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\components\GbMem.cpp">
@@ -68,7 +68,7 @@
     <ClInclude Include="src\components\GbPpu.h">
       <Filter>Header Files\gb_ppu</Filter>
     </ClInclude>
-    <ClInclude Include="src\debug\Logger.h">
+    <ClInclude Include="src\help\Logger.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\components\GbMem.h">
