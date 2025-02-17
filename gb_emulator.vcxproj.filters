@@ -33,45 +33,45 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GbCpu.cpp">
+    <ClCompile Include="src\components\GbCpu.cpp">
       <Filter>Source Files\gb_cpu</Filter>
     </ClCompile>
-    <ClCompile Include="Gb.cpp">
+    <ClCompile Include="src\Gb.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GbPpu.cpp">
+    <ClCompile Include="src\components\GbPpu.cpp">
       <Filter>Source Files\gb_ppu</Filter>
     </ClCompile>
-    <ClCompile Include="Logger.cpp">
+    <ClCompile Include="src\debug\Logger.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GbMem.cpp">
+    <ClCompile Include="src\components\GbMem.cpp">
       <Filter>Source Files\gb_mem</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GbCpu.h">
+    <ClInclude Include="src\components\GbCpu.h">
       <Filter>Header Files\gb_cpu</Filter>
     </ClInclude>
-    <ClInclude Include="TypeDef.h">
+    <ClInclude Include="src\TypeDef.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Gb.h">
+    <ClInclude Include="src\Gb.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GbStructs.h">
+    <ClInclude Include="src\GbStructs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GbPpu.h">
+    <ClInclude Include="src\components\GbPpu.h">
       <Filter>Header Files\gb_ppu</Filter>
     </ClInclude>
-    <ClInclude Include="Logger.h">
+    <ClInclude Include="src\debug\Logger.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GbMem.h">
+    <ClInclude Include="src\components\GbMem.h">
       <Filter>Header Files\gb_mem</Filter>
     </ClInclude>
   </ItemGroup>

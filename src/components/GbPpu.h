@@ -1,7 +1,7 @@
 #ifndef __GBPPU_H__
 #define __GBPPU_H__
 
-#include "GbStructs.h"
+#include "../GbStructs.h"
 #include <SDL3/SDL.h>
 #include <stdio.h>
 

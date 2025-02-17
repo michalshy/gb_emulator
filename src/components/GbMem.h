@@ -1,7 +1,7 @@
 #ifndef __GBMEM_H__
 #define __GBMEM_H__
 
-#include "GbStructs.h"
+#include "../GbStructs.h"
 #include <fstream>
 
 class GbMem

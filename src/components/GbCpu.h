@@ -1,10 +1,10 @@
 #ifndef __GBCPU_H__
 #define __GBCPU_H__
 
-#include "GbStructs.h"
+#include "../GbStructs.h"
 #include <cstdio>
 #include <cstring>
-#include "Logger.h"
+#include "../debug/Logger.h"
 #include "GbMem.h"
 
 class GbCpu {

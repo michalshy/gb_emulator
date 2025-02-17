@@ -139,21 +139,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Gb.cpp" />
-    <ClCompile Include="GbCpu.cpp" />
-    <ClCompile Include="GbMem.cpp" />
-    <ClCompile Include="GbPpu.cpp" />
-    <ClCompile Include="Logger.cpp" />
-    <ClCompile Include="main.cpp" />
+    <ClCompile Include="src\Gb.cpp" />
+    <ClCompile Include="src\components\GbCpu.cpp" />
+    <ClCompile Include="src\components\GbMem.cpp" />
+    <ClCompile Include="src\components\GbPpu.cpp" />
+    <ClCompile Include="src\debug\Logger.cpp" />
+    <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Gb.h" />
-    <ClInclude Include="GbCpu.h" />
-    <ClInclude Include="GbMem.h" />
-    <ClInclude Include="GbPpu.h" />
-    <ClInclude Include="GbStructs.h" />
-    <ClInclude Include="Logger.h" />
-    <ClInclude Include="TypeDef.h" />
+    <ClInclude Include="src\Gb.h" />
+    <ClInclude Include="src\components\GbCpu.h" />
+    <ClInclude Include="src\components\GbMem.h" />
+    <ClInclude Include="src\components\GbPpu.h" />
+    <ClInclude Include="src\GbStructs.h" />
+    <ClInclude Include="src\debug\Logger.h" />
+    <ClInclude Include="src\TypeDef.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="SDL\VisualC\SDL\SDL.vcxproj">

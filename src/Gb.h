@@ -1,9 +1,9 @@
 #ifndef __GB_H__
 #define __GB_H__
 
-#include "GbCpu.h"
-#include "GbPpu.h"
-#include "GbMem.h"
+#include "components/GbCpu.h"
+#include "components/GbPpu.h"
+#include "components/GbMem.h"
 #include <iostream>
 
 class Gb {
