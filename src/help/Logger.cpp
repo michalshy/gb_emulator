@@ -1,5 +1,11 @@
 #include "Logger.h"
 
+void Logger::Debug(std::string msg)
+{
+	std::string fmsg = PREF_DEBUG + msg;
+	std::cout << fmsg << std::endl;
+}
+
 void Logger::Debug(Registers r)
 {
 	std::cout << "Regs \n"

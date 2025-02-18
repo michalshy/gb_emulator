@@ -34,16 +34,16 @@ bool GbCpu::Fetch()
 bool GbCpu::Decode()
 {
    auto instruction = this->instructions[opcode];
-   Logger::Debug(regs);
+   //Logger::Debug(regs);
    if (instruction.func != NULL)
    {
-       Logger::Debug(instruction);
+       //Logger::Debug(instruction);
        (this->*(instruction.func))();
        return true;
    }
    else
    {
-       Logger::Error(instruction);
+       //Logger::Error(instruction);
        return false;
    }
 }

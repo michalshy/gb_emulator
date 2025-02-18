@@ -40,9 +40,16 @@ void GbPpu::Render()
 {
 	if(mInit)
 	{
+		SDL_FRect rect;
 		SDL_Event event;
 		while (SDL_PollEvent(&event))
 		{
+			/* Let's draw a single rectangle (square, really). */
+			rect.x = rect.y = 10;
+			rect.w = rect.h = 10;
+			SDL_SetRenderDrawColor(renderer, pallete[0][0], pallete[0][1], pallete[0][2], pallete[0][3]);
+			SDL_RenderRect(renderer, &rect);
+
 			switch (event.type)
 			{
 			case SDL_EVENT_QUIT:

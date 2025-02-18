@@ -16,11 +16,14 @@ constexpr u8 LEFT_BIT = 0b10000000;
 constexpr u8 RIGHT_BIT = 0b00000001;
 
 // PPU CONSTANTS
+constexpr size_t PALLETE_SIZE = 4;
 constexpr size_t RES_MULT = 4;
 constexpr size_t WIDTH = 160;
 constexpr size_t HEIGHT = 144;
 constexpr size_t WIDTH_RES = WIDTH * RES_MULT;
 constexpr size_t HEIGHT_RES = HEIGHT * RES_MULT;
+constexpr u8 TILE_SIZE = 8;
+constexpr u8 TILE_SIZE_RES = 8 * RES_MULT;
 
 // MEMORY OFFSETS
 constexpr u16 ROM_START = 0x000;

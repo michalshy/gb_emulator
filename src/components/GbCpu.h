@@ -4,7 +4,7 @@
 #include "../GbStructs.h"
 #include <cstdio>
 #include <cstring>
-#include "../debug/Logger.h"
+#include "../help/Logger.h"
 #include "GbMem.h"
 
 class GbCpu {
