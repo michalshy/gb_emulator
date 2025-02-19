@@ -1,6 +1,6 @@
 #include "GbPpu.h"
 
-GbPpu::GbPpu()
+GbPpu::GbPpu(GbMem& _VRAM) : VRAM(_VRAM)
 {
 	mInit = false;
 
@@ -22,7 +22,7 @@ GbPpu::GbPpu()
 bool GbPpu::Init()
 {
 	//Create window
-	window = SDL_CreateWindow("GameBoy_michin", WIDTH_RES, HEIGHT_RES, 0);
+	window = SDL_CreateWindow("GameBoy_michin", WIDTH, HEIGHT, 0);
 	//Create renderer
 	renderer = SDL_CreateRenderer(window, NULL);
 	if (window == NULL || renderer == NULL)
@@ -33,22 +33,34 @@ bool GbPpu::Init()
 	{
 		mInit = true;
 	}
+
+	if (mInit)
+	{
+		SetPositions();
+	}
+
 	return mInit;
+}
+
+void GbPpu::DrawTiles()
+{
+	int index = VRAM_START;
+	for (int i = 0; i < TILES_NUMBER; i++)
+	{
+		for (int j = 0; j < PIXELS_FOR_TILE; j++)
+		{
+			
+		}
+	}
 }
 
 void GbPpu::Render()
 {
 	if(mInit)
 	{
-		SDL_FRect rect;
 		SDL_Event event;
 		while (SDL_PollEvent(&event))
 		{
-			/* Let's draw a single rectangle (square, really). */
-			rect.x = rect.y = 10;
-			rect.w = rect.h = 10;
-			SDL_SetRenderDrawColor(renderer, pallete[0][0], pallete[0][1], pallete[0][2], pallete[0][3]);
-			SDL_RenderRect(renderer, &rect);
 
 			switch (event.type)
 			{
@@ -57,8 +69,17 @@ void GbPpu::Render()
 				break;
 			}
 		}
+		/* Let's draw a single rectangle (square, really). */
+		SDL_SetRenderDrawColor(renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
 
+		SetPositions();
+		/*rect.x = rect.y = 0;
+		rect.h = rect.w = TILE_SIZE_RES;
 		SDL_RenderClear(renderer);
+		SDL_SetRenderDrawColor(renderer, pallete[0][0], pallete[0][1], pallete[0][2], pallete[0][3]);
+		SDL_RenderFillRect(renderer, &rect);
+		SDL_RenderRect(renderer, &rect);*/
+		
 		SDL_RenderPresent(renderer);
 	}
 	else
@@ -66,5 +87,21 @@ void GbPpu::Render()
 		SDL_DestroyRenderer(renderer);
 		SDL_DestroyWindow(window);
 		SDL_Quit();
+	}
+}
+
+void GbPpu::SetPositions()
+{
+	for (int i = 0; i < TILES_NUMBER; i++)
+	{
+		for (int j = 0; j < PIXELS_FOR_TILE; j++)
+		{
+			pixels[i][j].x = ((i*8)%WIDTH)+(j%8);
+			pixels[i][j].y = ((i*8)%HEIGHT);
+			pixels[i][j].w = pixels[i][j].h = 1;
+			SDL_SetRenderDrawColor(renderer, pallete[0][0], pallete[0][1], pallete[0][2], pallete[0][3]);
+			SDL_RenderFillRect(renderer, &pixels[i][j]);
+			SDL_RenderRect(renderer, &pixels[i][j]);
+		}
 	}
 }

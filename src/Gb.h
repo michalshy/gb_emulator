@@ -18,7 +18,7 @@ class Gb {
 	
 public:
 	// CONSTRUCTORS
-	Gb() : mInit(false), cpu(mem) {}
+	Gb() : mInit(false), cpu(mem), ppu(mem) {}
 
 	bool Init();
 

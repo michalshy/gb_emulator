@@ -24,6 +24,8 @@ constexpr size_t WIDTH_RES = WIDTH * RES_MULT;
 constexpr size_t HEIGHT_RES = HEIGHT * RES_MULT;
 constexpr u8 TILE_SIZE = 8;
 constexpr u8 TILE_SIZE_RES = 8 * RES_MULT;
+constexpr size_t TILES_NUMBER = 384;
+constexpr size_t PIXELS_FOR_TILE = 64;
 
 // MEMORY OFFSETS
 constexpr u16 ROM_START = 0x000;
