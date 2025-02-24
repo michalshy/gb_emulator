@@ -11,7 +11,7 @@
 class GbPpu
 {
 	//SCREEN
-	GbMem& VRAM;
+	GbMem& mem;
 	SDL_Window* window;
 	SDL_Surface* surface;
 	SDL_Renderer* renderer;
@@ -24,12 +24,13 @@ class GbPpu
 	SDL_FRect pixels[TILES_NUMBER][PIXELS_FOR_TILE];
 	bool mInit;
 public:
-	GbPpu(GbMem& _VRAM);
+	GbPpu(GbMem& _mem);
 	bool Init();
 	void DrawTiles();
 	void Render();
 protected:
 	void SetPositions();
+	u8 GetColorMask(u8 j, u8(&tile)[16]);
 };
 
 #endif // __GBPPU_H__

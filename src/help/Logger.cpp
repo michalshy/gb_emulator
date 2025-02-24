@@ -14,7 +14,8 @@ void Logger::Debug(Registers r)
 		<< "DE: " << std::hex << r.de << " \n"
 		<< "HL: " << std::hex << r.hl << " \n"
 		<< "PC: " << std::hex << r.pc << " \n"
-		<< "SP: " << std::hex << r.sp << " \n";
+		<< "SP: " << std::hex << r.sp << " \n"
+		<< std::endl;
 }
 
 void Logger::Debug(CpuInstruction inst)

@@ -30,6 +30,7 @@ protected:
 	void NOP(); // 0x00
     void DEC_B(); //0x05
     void LD_B_D8(); // 0x06
+    void DEC_C(); // 0x0D
     void LD_C_D8(); // 0x0E
     void JR_NZ_E8(); // 0x20
     void LD_HL_N16(); // 0x21
@@ -52,7 +53,7 @@ protected:
         {"LD A, (BC)", 1, NULL}, // 0x0A
         {"DEC BC", 1, NULL}, // 0x0B
         {"INC C", 1, NULL}, // 0x0C
-        {"DEC C", 1, NULL}, // 0x0D
+        {"DEC C", 1, &GbCpu::DEC_C}, // 0x0D
         {"LD C, d8", 2, &GbCpu::LD_C_D8}, // 0x0E
         {"RRCA", 1, NULL}, // 0x0F
         {"STOP 0", 2, NULL}, // 0x10

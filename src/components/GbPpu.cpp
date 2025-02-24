@@ -1,6 +1,6 @@
 #include "GbPpu.h"
 
-GbPpu::GbPpu(GbMem& _VRAM) : VRAM(_VRAM)
+GbPpu::GbPpu(GbMem& _mem) : mem(_mem)
 {
 	mInit = false;
 
@@ -44,12 +44,27 @@ bool GbPpu::Init()
 
 void GbPpu::DrawTiles()
 {
-	int index = VRAM_START;
+	u16 index = VRAM_START;
 	for (int i = 0; i < TILES_NUMBER; i++)
 	{
+		u8 tile[16];
+		for (int j = 0; j < 16; j++)
+		{
+			tile[j] = mem.ReadByte(index);
+			index++;
+		}
 		for (int j = 0; j < PIXELS_FOR_TILE; j++)
 		{
-			
+			u8 colorMask = GetColorMask(j, tile);
+			SDL_SetRenderDrawColor(
+				renderer, 
+				pallete[colorMask][0],
+				pallete[colorMask][1],
+				pallete[colorMask][2],
+				pallete[colorMask][3]
+			);
+			SDL_RenderFillRect(renderer, &pixels[i][j]);
+			SDL_RenderRect(renderer, &pixels[i][j]);
 		}
 	}
 }
@@ -72,13 +87,7 @@ void GbPpu::Render()
 		/* Let's draw a single rectangle (square, really). */
 		SDL_SetRenderDrawColor(renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
 
-		SetPositions();
-		/*rect.x = rect.y = 0;
-		rect.h = rect.w = TILE_SIZE_RES;
-		SDL_RenderClear(renderer);
-		SDL_SetRenderDrawColor(renderer, pallete[0][0], pallete[0][1], pallete[0][2], pallete[0][3]);
-		SDL_RenderFillRect(renderer, &rect);
-		SDL_RenderRect(renderer, &rect);*/
+		DrawTiles();
 		
 		SDL_RenderPresent(renderer);
 	}
@@ -96,12 +105,23 @@ void GbPpu::SetPositions()
 	{
 		for (int j = 0; j < PIXELS_FOR_TILE; j++)
 		{
-			pixels[i][j].x = ((i*8)%WIDTH)+(j%8);
-			pixels[i][j].y = ((i*8)%HEIGHT);
+			pixels[i][j].x = ((i*BYTE)%WIDTH)+(j%BYTE);
+			pixels[i][j].y = ((i/TILES_IN_SCREEN)*BYTE)+(j/BYTE);
 			pixels[i][j].w = pixels[i][j].h = 1;
-			SDL_SetRenderDrawColor(renderer, pallete[0][0], pallete[0][1], pallete[0][2], pallete[0][3]);
-			SDL_RenderFillRect(renderer, &pixels[i][j]);
-			SDL_RenderRect(renderer, &pixels[i][j]);
 		}
 	}
+}
+
+u8 GbPpu::GetColorMask(u8 j, u8 (&tile)[16])
+{
+	u8 line = j / 8;
+	u8 lineOffest = line * 2;
+	u8 offest = 7 - (j % 8);
+
+	u8 lsb = (tile[lineOffest] >> offest) & 1;
+	u8 msb = (tile[lineOffest + 1] >> offest) & 1;
+
+	u8 res = (msb << 1) | lsb;
+
+	return res;
 }

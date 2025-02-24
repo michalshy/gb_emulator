@@ -26,6 +26,9 @@ constexpr u8 TILE_SIZE = 8;
 constexpr u8 TILE_SIZE_RES = 8 * RES_MULT;
 constexpr size_t TILES_NUMBER = 384;
 constexpr size_t PIXELS_FOR_TILE = 64;
+constexpr size_t TILES_IN_SCREEN = 20;
+constexpr size_t METHOD8000 = 0x8000;
+constexpr size_t METHOD8800 = 0x9000;
 
 // MEMORY OFFSETS
 constexpr u16 ROM_START = 0x000;
@@ -46,6 +49,7 @@ constexpr u16 INTERRUPT_ENABLE = 0xFFFF;
 constexpr size_t KiB8 = 8 * 1024;
 constexpr size_t KiB16 = 16 * 1024;
 constexpr size_t KiB32 = 32 * 1024;
+constexpr size_t BYTE = 8;
 constexpr size_t BYTE160 = 160;
 constexpr size_t BYTE128 = 128;
 

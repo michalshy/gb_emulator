@@ -3,6 +3,8 @@
 bool GbCpu::Init()
 {
     mInit = true;
+    //ENTRY POINT
+    regs.pc = 0x100;
     return true;
 }
 
@@ -34,7 +36,6 @@ bool GbCpu::Fetch()
 bool GbCpu::Decode()
 {
    auto instruction = this->instructions[opcode];
-   //Logger::Debug(regs);
    if (instruction.func != NULL)
    {
        //Logger::Debug(instruction);
@@ -43,7 +44,7 @@ bool GbCpu::Decode()
    }
    else
    {
-       //Logger::Error(instruction);
+       Logger::Error(instruction);
        return false;
    }
 }
@@ -58,11 +59,19 @@ void GbCpu::NOP()
 void GbCpu::DEC_B()
 {
     u8 res = regs.b - 1;
-    if (res == 0) SetFlag(7);
+    if (res == 0)
+        SetFlag(7);
+    else
+		ResetFlag(7);
     SetFlag(6);
     if ((regs.b & MASK_LOWER) - 1 > (regs.b & MASK_LOWER)) {
         SetFlag(5);
     }
+    else
+    {
+		ResetFlag(5);
+    }
+    regs.b--;
 }
 
 void GbCpu::LD_B_D8()
@@ -70,6 +79,24 @@ void GbCpu::LD_B_D8()
     u8 load = mem.ReadByte(regs.pc);
     regs.pc++;
     regs.b = load;
+}
+
+void GbCpu::DEC_C()
+{
+    u8 res = regs.c - 1;
+    if (res == 0)
+        SetFlag(7);
+    else
+        ResetFlag(7);
+    SetFlag(6);
+    if ((regs.c & MASK_LOWER) - 1 > (regs.c & MASK_LOWER)) {
+        SetFlag(5);
+    }
+    else
+    {
+        ResetFlag(5);
+    }
+    regs.c--;
 }
 
 void GbCpu::LD_C_D8()
