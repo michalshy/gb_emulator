@@ -38,7 +38,7 @@ bool GbCpu::Decode()
    auto instruction = this->instructions[opcode];
    if (instruction.func != NULL)
    {
-       //Logger::Debug(instruction);
+       Logger::Debug(instruction);
        (this->*(instruction.func))();
        return true;
    }
@@ -106,6 +106,19 @@ void GbCpu::LD_C_D8()
     regs.c = load;
 }
 
+void GbCpu::RRCA()
+{
+	u8 carry = regs.a & 1;
+	regs.a = (regs.a >> 1) | (carry << 7);
+	if (carry == 1)
+		SetFlag(4);
+	else
+		ResetFlag(4);
+	ResetFlag(5);
+	ResetFlag(6);
+	ResetFlag(7);
+}
+
 void GbCpu::JR_NZ_E8()
 {
     s8 e = static_cast<s8>(mem.ReadByte(regs.pc));
@@ -129,6 +142,20 @@ void GbCpu::LD_HLadd_M_A()
 {
     mem.WriteByte(regs.hl, regs.a);
     regs.hl -= 1;
+}
+
+void GbCpu::LD_hl_n()
+{
+	u8 load = mem.ReadByte(regs.pc);
+	regs.pc++;
+	mem.WriteByte(regs.hl, load);
+}
+
+void GbCpu::LD_A_D8()
+{
+	u8 load = mem.ReadByte(regs.pc);
+	regs.pc++;
+	regs.a = load;
 }
 
 void GbCpu::XOR_A_B()
@@ -158,4 +185,65 @@ void GbCpu::JP_A16()
     u16 msb = mem.ReadByte(regs.pc);
     regs.pc++;
     regs.pc = (msb << 8) | lsb;
+}
+
+void GbCpu::LD_n_A()
+{
+	u8 addr = mem.ReadByte(regs.pc);
+	regs.pc++;
+	mem.WriteByte(0xff00 + addr, regs.a);
+}
+
+void GbCpu::LD_c_A()
+{
+    mem.WriteByte(0xff00 + regs.c, regs.a);
+}
+
+void GbCpu::LD_nn_A()
+{
+	u16 addr = mem.ReadByte(regs.pc);
+	regs.pc++;
+	addr |= mem.ReadByte(regs.pc) << 8;
+	regs.pc++;
+	mem.WriteByte(addr, regs.a);
+}
+
+void GbCpu::LDH_A_n()
+{
+	u8 addr = mem.ReadByte(regs.pc);
+	regs.pc++;
+	regs.a = mem.ReadByte(0xff00 + addr);
+}
+
+void GbCpu::DI()
+{
+	mem.WriteByte(0xFFFF, 0);
+}
+
+void GbCpu::EI()
+{
+	mem.WriteByte(0xFFFF, 1);
+}
+
+void GbCpu::CP_A_n8()
+{
+    u8 n = mem.ReadByte(regs.pc);
+	regs.pc++;
+	u8 res = regs.a - n;
+	if (res == 0)
+		SetFlag(7);
+	else
+		ResetFlag(7);
+	SetFlag(6);
+	if ((regs.a & MASK_LOWER) - n > (regs.a & MASK_LOWER)) {
+		SetFlag(5);
+	}
+	else
+	{
+		ResetFlag(5);
+	}
+	if (n > regs.a)
+		SetFlag(4);
+	else
+		ResetFlag(4);
 }

@@ -32,12 +32,22 @@ protected:
     void LD_B_D8(); // 0x06
     void DEC_C(); // 0x0D
     void LD_C_D8(); // 0x0E
+	void RRCA(); // 0x0F
     void JR_NZ_E8(); // 0x20
     void LD_HL_N16(); // 0x21
     void LD_HLadd_M_A(); // 0x32
+	void LD_hl_n(); // 0x36
+	void LD_A_D8(); // 0x3E
     void XOR_A_B(); // 0xA8
     void XOR_A_A(); // 0xAF
     void JP_A16(); // 0xC3
+	void LD_n_A(); // 0xE0
+    void LD_c_A(); // 0xE2
+	void LD_nn_A(); // 0xEA
+    void LDH_A_n(); //0XF0
+    void DI(); // 0xF3
+	void EI(); // 0xFB
+	void CP_A_n8(); // 0xFE
 
     const CpuInstruction instructions[256] = {
         {"NOP", 1, &GbCpu::NOP}, // 0x00
@@ -55,7 +65,7 @@ protected:
         {"INC C", 1, NULL}, // 0x0C
         {"DEC C", 1, &GbCpu::DEC_C}, // 0x0D
         {"LD C, d8", 2, &GbCpu::LD_C_D8}, // 0x0E
-        {"RRCA", 1, NULL}, // 0x0F
+        {"RRCA", 1, &GbCpu::RRCA}, // 0x0F
         {"STOP 0", 2, NULL}, // 0x10
         {"LD DE, d16", 3, NULL}, // 0x11
         {"LD (DE), A", 1, NULL}, // 0x12
@@ -94,7 +104,7 @@ protected:
         {"INC SP", 1, NULL}, // 0x33
         {"INC (HL)", 1, NULL}, // 0x34
         {"DEC (HL)", 1, NULL}, // 0x35
-        {"LD (HL), d8", 2, NULL}, // 0x36
+        {"LD (HL), d8", 2, &GbCpu::LD_hl_n}, // 0x36
         {"SCF", 1, NULL}, // 0x37
         {"JR C, r8", 2, NULL}, // 0x38
         {"ADD HL, SP", 1, NULL}, // 0x39
@@ -102,7 +112,7 @@ protected:
         {"DEC SP", 1, NULL}, // 0x3B
         {"INC A", 1, NULL}, // 0x3C
         {"DEC A", 1, NULL}, // 0x3D
-        {"LD A, d8", 2, NULL}, // 0x3E
+        {"LD A, d8", 2, &GbCpu::LD_A_D8}, // 0x3E
         {"CCF", 1, NULL}, // 0x3F
         {"LD B, B", 1, NULL}, // 0x40
         {"LD B, C", 1, NULL}, // 0x41
@@ -259,33 +269,43 @@ protected:
         {"RET C", 1, NULL}, // 0xD8
         {"RETI", 1, NULL}, // 0xD9
         { "JP C, a16", 3, NULL }, // 0xDA
-        { "CALL C, a16", 3, NULL }, // 0xDC
-        { "SBC A, d8", 2, NULL }, // 0xDE
-        { "RST 18H", 1, NULL }, // 0xDF
-        { "LD (a8), A", 2, NULL }, // 0xE0
-        { "POP HL", 1, NULL }, // 0xE1
-        { "LD (C), A", 1, NULL }, // 0xE2
-        { "PUSH HL", 1, NULL }, // 0xE5
-        { "AND d8", 2, NULL }, // 0xE6
-        { "RST 20H", 1, NULL }, // 0xE7
-        { "ADD SP, r8", 2, NULL }, // 0xE8
-        { "JP (HL)", 1, NULL }, // 0xE9
-        { "LD (a16), A", 3, NULL }, // 0xEA
-        { "XOR d8", 2, NULL }, // 0xEE
-        { "RST 28H", 1, NULL }, // 0xEF
-        { "LD A, (a8)", 2, NULL }, // 0xF0
-        { "POP AF", 1, NULL }, // 0xF1
-        { "LD A, (C)", 1, NULL }, // 0xF2
-        { "DI", 1, NULL }, // 0xF3
-        { "PUSH AF", 1, NULL }, // 0xF5
-        { "OR d8", 2, NULL }, // 0xF6
-        { "RST 30H", 1, NULL }, // 0xF7
-        { "LD HL, SP+r8", 2, NULL }, // 0xF8
+        { "CALL C, a16", 3, NULL }, // 0xDB
+        { "SBC A, d8", 2, NULL }, // 0xDC
+        { "RST 18H", 1, NULL }, // 0xDD
+        { "LD (a8), A", 2, NULL }, // 0xDE
+        { "POP HL", 1, NULL }, // 0xDF
+        { "LD (n), A", 1, &GbCpu::LD_n_A } , // 0xE0
+        { "PUSH HL", 1, NULL }, // 0xE1
+        { "AND d8", 2, NULL }, // 0xE2
+        { "RST 20H", 1, NULL }, // 0xE3
+        { "ADD SP, r8", 2, NULL }, // 0xE4
+        { "JP (HL)", 1, NULL }, // 0xE5
+        { "LD (a16), A", 3, NULL }, // 0xE6
+        { "XOR d8", 2, NULL }, // 0xE7
+        { "RST 28H", 1, NULL }, // 0xE8
+        { "LD A, (a8)", 2, NULL }, // 0xE9
+        { "LD (nn), A", 3, &GbCpu::LD_nn_A }, // 0xEA
+        { "LD A, (C)", 1, NULL }, // 0xEB
+        { "DI", 1, NULL }, // 0xEC
+        { "PUSH AF", 1, NULL }, // 0xED
+        { "PUSH AF", 1, NULL }, // 0xEE
+        { "OR d8", 2, NULL }, // 0xEF
+        { "LDH A, (a8)", 1, &GbCpu::LDH_A_n }, // 0xF0
+        { "LD HL, SP+r8", 2, NULL }, // 0xF1
+        { "LD SP, HL", 1, NULL }, // 0xF2
+        { "DI", 3, &GbCpu::DI }, // 0xF3
+        { "EI", 1, NULL}, // 0xF4
+        { "CP d8", 2, NULL }, // 0xF5
+        { "OR A, n8", 1, NULL }, // 0xF6
+        { "RST $30", 1, NULL }, // 0xF7
+        { "LD HL, SP + e8", 1, NULL }, // 0xF8
         { "LD SP, HL", 1, NULL }, // 0xF9
-        { "LD A, (a16)", 3, NULL }, // 0xFA
-        { "EI", 1, NULL }, // 0xFB
-        { "CP d8", 2, NULL }, // 0xFE
-        { "RST 38H", 1, NULL }, // 0xFF
+        { "LD A, [a16]", 1, NULL }, // 0xFA
+        { "EI", 1, &GbCpu::EI }, // 0xFB
+        { "-", 1, NULL }, // 0xFC
+        { "-", 1, NULL }, // 0xFD
+        { "CP A, n8", 1, &GbCpu::CP_A_n8 }, // 0xFE
+        { "RST $38", 1, NULL }, // 0xFF
     };
 };
 
